@@ -1,0 +1,86 @@
+[
+    {
+        "id": 1,
+        "nome": "Alicate",
+        "preco": 5,
+        "descricao": "Uma ferramenta versátil e essencial em qualquer caixa de ferramentas, o alicate é projetado para uma variedade de aplicações. Com suas mandíbulas de aperto e corte, pode ser utilizado para segurar firmemente objetos, dobrar fios metálicos, torcer cabos, ou até mesmo cortar materiais como arame ou pequenos pregos. Disponível em diferentes tamanhos e formatos, desde os alicates de ponta fina para trabalhos delicados até os alicates de corte robustos para serviços mais pesados.",
+        "estoque": 25
+    },
+    {
+        "id": 2,
+        "nome": "Chave de Fenda",
+        "preco": 2,
+        "descricao": "Uma ferramenta essencial para ajustar e apertar parafusos com sulcos, a chave de fenda é indispensável em montagens, reparos e construções. Disponível em formatos de ponta chata (fenda) ou cruzada (Phillips), permite uma aplicação precisa de torque para garantir fixações seguras em uma ampla variedade de materiais, desde madeira e metal até plásticos e componentes eletrônicos delicados.",
+        "estoque": 17
+    },
+    {
+        "id": 3,
+        "nome": "Esmeril",
+        "preco": 35,
+        "descricao": "Ideal para oficinas e ambientes industriais, o esmeril é uma máquina estacionária que utiliza discos abrasivos rotativos para desbaste, afiação e polimento de materiais diversos, como metais, pedras e cerâmicas. Essencial para moldar peças metálicas, remover rebarbas e restaurar superfícies desgastadas, proporciona precisão e eficiência em tarefas de acabamento e reparo.",
+        "estoque": 33
+    },
+    {
+        "id": 4,
+        "nome": "Esmerilhadeira",
+        "preco": 140,
+        "descricao": "Uma ferramenta elétrica portátil poderosa e versátil, a esmerilhadeira é indispensável para cortar, desbastar e polir uma ampla gama de materiais, incluindo metal, concreto e alvenaria. Equipada com discos abrasivos ou de corte, oferece controle e capacidade de manobra para trabalhos exigentes, como remoção de soldas, preparação de superfícies para pintura e construção civil.",
+        "estoque": 11
+    },
+    {
+        "id": 5,
+        "nome": "Furadeira",
+        "preco": 25,
+        "descricao": "Essencial em qualquer projeto de construção ou reparo, a furadeira é uma ferramenta elétrica que utiliza brocas para perfurar materiais como madeira, metal, plástico e concreto. Disponível em modelos com fio ou sem fio (bateria), oferece potência ajustável e velocidades variáveis para perfurações precisas e eficientes, desde pequenos furos até instalações mais complexas.",
+        "estoque": 41
+    },
+    {
+        "id": 6,
+        "nome": "Lavadora de Alta Pressão",
+        "preco": 60,
+        "descricao": "Perfeita para limpezas pesadas e eficientes, a lavadora de alta pressão utiliza água sob alta pressão para remover sujeira, graxa, tinta ou musgo de superfícies como fachadas, calçadas, veículos e equipamentos industriais. Equipada com diferentes bicos de pulverização e ajustes de pressão, oferece versatilidade para tarefas domésticas e comerciais, garantindo resultados rápidos e de qualidade.",
+        "estoque": 5
+    },
+    {
+        "id": 7,
+        "nome": "Martelo",
+        "preco": 10,
+        "descricao": "Uma ferramenta manual fundamental em qualquer caixa de ferramentas, o martelo é utilizado para bater, fixar ou remover objetos através de impacto controlado. Disponível em diversos tamanhos e pesos, com cabeças de metal endurecido e cabos ergonômicos, oferece precisão e potência para uma variedade de trabalhos, desde carpintaria e montagem de móveis até reparos gerais.",
+        "estoque": 6
+    },
+    {
+        "id": 8,
+        "nome": "Parafusadeira",
+        "preco": 20,
+        "descricao": "Essencial para montagens e reparos rápidos, a parafusadeira é uma ferramenta elétrica que facilita a inserção e remoção de parafusos com eficiência e precisão. Disponível em modelos com fio ou sem fio (bateria), oferece ajustes de torque e velocidade para diferentes tipos de parafusos e materiais, sendo ideal para projetos de construção, marcenaria e manutenção.",
+        "estoque": 9
+    },
+    {
+        "id": 9,
+        "nome": "Serrote",
+        "preco": 10,
+        "descricao": "Ferramenta manual robusta e eficiente, o serrote é utilizado para cortar madeira, plásticos e materiais similares por meio de movimentos de vaivém. Disponível em diferentes tamanhos e configurações de dentes, oferece precisão e controle para cortes retos ou curvos, sendo indispensável em projetos de marcenaria, construção e reparos domésticos.",
+        "estoque": 8
+    },
+    {
+        "id": 10,
+        "nome": "Chave de Boca",
+        "preco": 4,
+        "descricao": "Também conhecida como chave fixa, a chave de boca é uma ferramenta manual utilizada para apertar ou afrouxar porcas e parafusos. Ela possui duas extremidades abertas com medidas diferentes, cada uma correspondendo a um tamanho específico de porca ou parafuso. Isso permite um encaixe preciso e firme, proporcionando torque adequado para evitar danos aos elementos de fixação e garantindo uma fixação segura em montagens mecânicas, construção civil e manutenção automotiva.",
+        "estoque": 12
+    },
+    {
+        "id": 11,
+        "nome": "Lixadeira",
+        "preco": 40,
+        "descricao": "A lixadeira é uma ferramenta elétrica projetada para lixar superfícies de diversos materiais, como madeira, metal, plástico e gesso. Existem diferentes tipos de lixadeiras, incluindo lixadeiras orbitais, de cinta e de disco, cada uma com sua aplicação específica. Elas são essenciais para remover imperfeições, nivelar superfícies, preparar materiais para pintura e acabamento, proporcionando um resultado uniforme e suave com eficiência e precisão.",
+        "estoque": 6
+    },
+    {
+        "id": 12,
+        "nome": "Compressor de Ar",
+        "preco": 560,
+        "descricao": "Um compressor de ar é um equipamento utilizado para gerar ar comprimido, que pode ser armazenado em tanques ou utilizado diretamente para operar ferramentas pneumáticas. Essas ferramentas incluem pistolas de pregos, pistolas de pintura, chaves de impacto, entre outras. O compressor de ar é essencial em ambientes de oficina, construção civil e manutenção automotiva, oferecendo uma fonte confiável de energia para trabalhos que exigem alta pressão e torque, melhorando a eficiência e a produtividade das operações.",
+        "estoque": 3
+    }
+]
