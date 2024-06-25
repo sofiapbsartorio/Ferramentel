@@ -8,6 +8,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copiar o código fonte da aplicação para o contêiner
 COPY . .
 # Definir a porta em que a aplicação irá rodar
-EXPOSE 8073
+EXPOSE 8000
 # Comando para executar a aplicação
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
