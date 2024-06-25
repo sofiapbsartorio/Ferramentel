@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/static/img/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="/static/lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/lib/bootstrap-icons/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/static/css/estilos.css">
+    <title>Ferramentel - {% block subtitulo %}{% endblock %}</title>
+    <style>
+        /* Remover espaço em branco acima do cabeçalho */
+        body {
+            margin-top: 0;
+            padding-top: 0;
+        }
+        /* Estilizando os botões de login e cadastro */
+        .navbar-nav .nav-link {
+            color: #343a40; /* Cor inicial do texto dos botões */
+            font-weight: bold;
+            padding: 8px 20px;
+            border-radius: 20px;
+            border: 1px solid #343a40; /* Borda dos botões */
+            transition: all 0.3s ease; /* Transição suave */
+        }
+        .navbar-nav .nav-link:hover {
+            color: #fff; /* Cor do texto ao passar o mouse */
+            background-color: #343a40; /* Cor de fundo ao passar o mouse */
+            border-color: #343a40; /* Cor da borda ao passar o mouse */
+        }
+        .navbar .navbar-brand img {
+            width: 220px;
+            height: auto;
+        }
+        .navbar .nav-item {
+            margin-left: 10px;
+        }
+        /* Definindo a cor inicial dos botões */
+        .navbar-nav .nav-link {
+            color: #fff; /* Cor branca para o texto dos botões */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">
+            <img src="/static/images/logo.png" alt="Logo Ferramentel">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/login.html">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/cadastro.html">Cadastro</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        {% block content %}{% endblock %}
+    </div>
+    <footer class="footer bg-dark text-white mt-5">
+        <div class="container text-center py-3">
+            <span>&copy; 2024 Ferramentel - Aluguel de Ferramentas. Todos os direitos reservados.</span>
+        </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
