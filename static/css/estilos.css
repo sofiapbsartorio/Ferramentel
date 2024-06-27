@@ -60,3 +60,10 @@
 .navbar-custom .navbar-toggler-icon {
     background-color: white; /* Cor do ícone do botão toggle */
 }
+
+.pagination .page-item .page-link.active {
+    background-color: #FFC107;
+    border-color: #FFC107;
+    color: black;
+    font-weight: bold;
+}
