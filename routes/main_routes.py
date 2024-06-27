@@ -68,8 +68,8 @@ async def post_cadastrar_ferramenta(produto: Produto):
    
     produto_cadastrado = ProdutoRepo.inserir(produto)
     if not produto_cadastrado or not produto_cadastrado.id:
-        raise HTTPException(status_code=400, detail="Erro ao alterar livro.")
-    return {"redirect": {"url": "/cadastro_produto_realizado"}}
+        raise HTTPException(status_code=400, detail="Erro ao cadastrar ferramenta.")
+    return {"redirect": {"url": "/cadastro_ferramenta_realizado"}}
 
 @router.get("/alterar_ferramenta/{id}")
 async def get_alterar_ferramenta(request: Request, id: int):
