@@ -72,3 +72,10 @@
     border-color: #FFC107;
     color: black;
 }
+
+.dropdown-item.active {
+    background-color: #FFC107;
+    font-weight: bold;
+    color: black;
+}
+
