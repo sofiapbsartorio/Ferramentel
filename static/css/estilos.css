@@ -67,3 +67,8 @@
     color: black;
     font-weight: bold;
 }
+
+.pagination .page-item .page-link {
+    border-color: #FFC107;
+    color: black;
+}
