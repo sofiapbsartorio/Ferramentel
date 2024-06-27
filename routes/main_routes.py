@@ -1,4 +1,5 @@
 import math
+import os
 from sqlite3 import DatabaseError
 from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
 from fastapi.responses import HTMLResponse, JSONResponse
@@ -8,6 +9,7 @@ from dtos.entrar_dto import EntrarDTO
 from ler_html import ler_html
 from dtos.novo_cliente_dto import NovoClienteDTO
 from models.cliente_model import Cliente
+from models.produto_model import Produto
 from repositories.cliente_repo import ClienteRepo
 from repositories.produto_repo import ProdutoRepo
 from util.auth import (
@@ -54,6 +56,67 @@ async def get_cadastro(request: Request):
         {"request": request},
     )
 
+@router.get("/cadastrar_ferramenta")
+async def get_cadastro_ferramenta(request: Request):
+    return templates.TemplateResponse(
+        "cadastrar_ferramenta.html",
+        {"request": request},
+    )
+
+@router.post("/cadastrar_ferramenta", response_class=JSONResponse)
+async def post_cadastrar_ferramenta(produto: Produto):
+   
+    produto_cadastrado = ProdutoRepo.inserir(produto)
+    if not produto_cadastrado or not produto_cadastrado.id:
+        raise HTTPException(status_code=400, detail="Erro ao alterar livro.")
+    return {"redirect": {"url": "/cadastro_produto_realizado"}}
+
+@router.get("/alterar_ferramenta/{id}")
+async def get_alterar_ferramenta(request: Request, id: int):
+    produto = ProdutoRepo.obter_um(id)
+    if not produto:
+        raise HTTPException(status_code=404, detail="Produto não encontrado.")
+   
+
+    return templates.TemplateResponse(
+        "alterar_ferramenta.html",
+        {"request": request, "produto": produto},
+    )
+
+@router.post("/alterar_ferramenta", response_class=JSONResponse)
+async def post_alterar_ferramenta(produto: Produto):
+    produto_alterado = ProdutoRepo.alterar(produto)
+    if not produto_alterado or not produto_alterado.id:
+        raise HTTPException(status_code=400, detail="Erro ao alterar produto.")
+    return {"redirect": {"url": "/alterar_ferramenta_confirmado"}}
+
+@router.get("/excluir_ferramenta/{id}")
+async def get_excluir_ferramenta(request: Request, id: int):
+    produto = ProdutoRepo.obter_um(id)
+    print("ID>>>>" + str(produto.id))
+    print("NOME>>>>" + produto.nome)
+    print("PREÇO>>>>" + str(produto.preco))
+    print("DESCRICAO>>>>" + produto.descricao)
+    print("QUANTIDADE>>>>" + str(produto.estoque))
+    if not produto:
+        raise HTTPException(status_code=404, detail="Produto não encontrado.")
+    return templates.TemplateResponse(
+        "excluir_ferramenta.html",
+        {"request": request, "produto": produto},
+    )
+
+@router.post("/excluir_ferramenta", response_class=JSONResponse)
+async def post_excluir_ferramenta(produto: Produto):
+    print("ID>>>>" + str(produto.id))
+    print("NOME>>>>" + produto.nome)
+    print("PREÇO>>>>" + str(produto.preco))
+    print("DESCRICAO>>>>" + produto.descricao)
+    print("QUANTIDADE>>>>" + str(produto.estoque))
+    produto_excluido = ProdutoRepo.excluir(produto.id)
+    print(produto_excluido)
+    if not produto_excluido :
+        raise HTTPException(status_code=400, detail="Erro ao excluir produto.")
+    return {"redirect": {"url": "/excluir_ferramenta_realizado"}}
 
 @router.post("/post_cadastro", response_class=JSONResponse)
 async def post_cadastro(cliente_dto: NovoClienteDTO):
@@ -70,6 +133,27 @@ async def post_cadastro(cliente_dto: NovoClienteDTO):
 async def get_cadastro_realizado(request: Request):
     return templates.TemplateResponse(
         "cadastro_confirmado.html",
+        {"request": request},
+    )
+
+@router.get("/cadastro_ferramenta_realizado")
+async def get_cadastro_realizado(request: Request):
+    return templates.TemplateResponse(
+        "cadastro_ferramenta_confirmado.html",
+        {"request": request},
+    )
+
+@router.get("/alterar_ferramenta_confirmado")
+async def get_alterar_realizado(request: Request):
+    return templates.TemplateResponse(
+        "alterar_ferramenta_confirmado.html",
+        {"request": request},
+    )
+
+@router.get("/excluir_ferramenta_realizado")
+async def get_excluir_realizado(request: Request):
+    return templates.TemplateResponse(
+        "excluir_ferramenta_confirmado.html",
         {"request": request},
     )
 
@@ -109,7 +193,7 @@ async def post_entrar(entrar_dto: EntrarDTO):
     response = JSONResponse(content={"redirect": {"url": entrar_dto.return_url}})
     adicionar_mensagem_sucesso(
         response,
-        f"Olá, <b>{cliente_entrou.nome}</b>. Seja bem-vindo(a) à Loja Virtual!",
+        f"Olá, <b>{cliente_entrou.nome}</b>. Seja bem-vindo(a) à Ferramentel!",
     )
     adicionar_cookie_auth(response, token)
     return response

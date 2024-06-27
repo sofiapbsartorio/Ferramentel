@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block subtitulo %}Cadastro{% endblock %}
+{% block conteudo %}
+<h1 class="display-5"><b>Excluir Ferramenta</b></h1>
+<hr>
+<form class="row json-form" method="post" action="/excluir_ferramenta">
+    <div class="col-12 col-lg-6">
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="id" name="id"  value="{{ produto.id }}" readonly>
+            <label for="id" value = "{{produto.id}}">Id</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="nome" name="nome"  value="{{ produto.nome }}">
+            <label for="nome">Nome da Ferramenta</label>
+        </div>
+
+
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="descricao" name="descricao" value="{{produto.descricao}}">
+            <label for="descricao">Descricao</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="preco" name="preco" value="{{produto.preco}}">
+            <label for="preco">Preço</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="isbn" name="isbn" value="{{produto.estoque}}">
+            <label for="isbn">Estoque</label>
+        </div>
+
+        <div style="margin-top: 40px; margin-bottom: 20px;">
+            <button type="submit" class="btn btn-warning btn-lg">Excluir Ferramenta</button>
+        </div>
+        
+    </div>
+   
+</form>
+<script src="/static/js/formToJson.js"></script>
+<script src="/static/js/inputMasks.js"></script>
+{% endblock %}

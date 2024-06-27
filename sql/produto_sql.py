@@ -24,6 +24,12 @@ SQL_ALTERAR = """
     WHERE id=?
 """
 
+SQL_ALTERAR_FERRAMENTA = """
+    UPDATE produto
+    WHERE id=?
+"""
+
+
 SQL_EXCLUIR = """
     DELETE FROM produto    
     WHERE id=?

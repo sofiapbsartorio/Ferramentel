@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block subtitulo %}Cadastro{% endblock %}
+{% block conteudo %}
+<h1 class="display-5"><b>Cadastrar Ferramenta</b></h1>
+<hr>
+
+<form class="row json-form" method="post" action="/cadastrar_ferramenta" enctype="multipart/form-data">
+    <div class="col-12 col-lg-6">
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="nome" name="nome" placeholder=" "  required>
+            <label for="nome">Título</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="descricao" name="descricao" placeholder=" " required>
+            <label for="descricao">Descrição</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="estoque" name="estoque" placeholder=" "  required>
+            <label for="estoque">Quantidade</label>
+        </div>
+       
+        <div style="margin-top: 40px; margin-bottom: 20px;">
+            <button type="submit" class="btn btn-warning btn-lg">Cadastrar Ferramenta</button>
+        </div>
+    </div>
+    <div class="col-12 col-lg-6">
+        <i class="bi bi-file-earmark-image-fill text-primary" style="font-size: 150px;"></i>
+         <div class="form-floating mb-3">
+            <input type="file" class="form-control" id="imagem" name="imagem" placeholder=" ">
+            <label for="imagem">Imagem</label>
+        </div>
+    </div>
+</form>
+
+
+<script src="/static/js/formToJson.js"></script>
+<script src="/static/js/inputMasks.js"></script>
+{% endblock %}

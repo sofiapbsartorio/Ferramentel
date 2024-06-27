@@ -5,5 +5,9 @@
 {% block conteudo %}
 <h1 class="display-5"><b>Ferramentas em Destaque</b></h1>
 <hr>
-{% include "grid_produtos.html" %}
+{% if cliente.admin == True -%}
+{% include "grid_produtos_gerente.html" %}
+{%- else: -%}
+{% include "grid_produtos_cliente.html" %}
+{%- endif -%}
 {% endblock %}

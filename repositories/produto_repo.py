@@ -45,21 +45,25 @@ class ProdutoRepo():
             return None
         
     @classmethod
-    def alterar(cls, produto: Produto) -> bool:
-        try:
-            with obter_conexao() as conexao:
-                cursor = conexao.cursor()
-                cursor.execute(SQL_ALTERAR, (
-                    produto.nome,
-                    produto.preco,
-                    produto.descricao,
-                    produto.estoque,
-                    produto.id
-                ))
-                return(cursor.rowcount > 0)
-        except sqlite3.Error as ex:
-            print(ex)
-            return False
+    def alterar(cls, produto: Produto) -> Optional[Produto]:
+            try:
+                with obter_conexao() as conexao:
+                    cursor = conexao.cursor()
+                    cursor.execute(SQL_ALTERAR, (
+                        produto.nome,
+                        produto.preco,
+                        produto.descricao,
+                        produto.estoque,
+                        produto.id
+                    ))
+                    if cursor.rowcount > 0:
+                        conexao.commit()
+                        return produto
+                    else:
+                        return None
+            except sqlite3.Error as ex:
+                print(ex)
+                return None
         
     @classmethod
     def excluir(cls, id: int) -> bool:
