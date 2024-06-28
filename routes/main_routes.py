@@ -9,8 +9,10 @@ from dtos.entrar_dto import EntrarDTO
 from ler_html import ler_html
 from dtos.novo_cliente_dto import NovoClienteDTO
 from models.cliente_model import Cliente
+from models.locacao_model import Locacao
 from models.produto_model import Produto
 from repositories.cliente_repo import ClienteRepo
+from repositories.locacao_repo import LocacaoRepo
 from repositories.produto_repo import ProdutoRepo
 from util.auth import (
     conferir_senha,
@@ -231,3 +233,64 @@ async def get_buscar(
             "ordem": o,
         },
     )
+
+#################################################################
+# Empréstimo
+
+@router.get("/locar")
+async def get_locar(request: Request):
+    lista_clientes = ClienteRepo.obter_todos()
+    lista_produtos = ProdutoRepo.obter_todos()
+    return templates.TemplateResponse(
+        "emprestar.html",
+        {"request": request, "lista_clientes": lista_clientes, "lista_produtos": lista_produtos},
+    )
+
+
+@router.get("/locacoes")
+async def get_emprestimos(request: Request):
+    lista_locacoes = LocacaoRepo.obter_todos()
+    lista_clientes = ClienteRepo.obter_todos()
+    for p in lista_locacoes:
+        print(p.data_emprestimo)
+    return templates.TemplateResponse(
+        "locacoes.html",
+        {"request": request,
+        "lista_locacoes": lista_locacoes,
+        "lista_clientes": lista_clientes
+        },
+    )
+
+
+@router.get("/cadastro_locacao_realizado")
+async def get_cadastro_realizado(request: Request):
+    return templates.TemplateResponse(
+        "cadastro_locacao_confirmado.html",
+        {"request": request},
+    )
+
+
+@router.post("/cadastrar_emprestimo", response_class=JSONResponse)
+async def post_cadastrar_emprestimo(locacao: Locacao):
+    try:
+        # Verifica se o cliente existe
+        cliente = ClienteRepo.obter_um(locacao.cliente_id)
+        if not cliente:
+            raise HTTPException(status_code=404, detail=f"Cliente com ID {locacao.cliente_id} não encontrado.")
+        
+        produto = ProdutoRepo.obter_um(locacao.livro_id)
+        print(locacao.livro_id)
+        print(produto)
+        if not produto:
+            raise HTTPException(status_code=404, detail=f"Livro com ID {locacao.livro_id} não encontrado.")
+        
+      
+        LocacaoRepo.inserir(locacao)
+        produto.emprestado = 1
+        ProdutoRepo.alterar_locacao(produto)
+        if ProdutoRepo.alterar_locacao(produto) is None:
+            raise HTTPException(status_code=400, detail="Erro ao atualizar o status.")
+        
+        return {"redirect": {"url": "/cadastro_locacao_realizado"}}    
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
