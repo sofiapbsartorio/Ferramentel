@@ -51,6 +51,7 @@ async def get_contato(request: Request):
     )
 
 
+# CADASTROS 
 @router.get("/cadastro")
 async def get_cadastro(request: Request):
     return templates.TemplateResponse(
@@ -73,6 +74,9 @@ async def post_cadastrar_ferramenta(produto: Produto):
         raise HTTPException(status_code=400, detail="Erro ao cadastrar ferramenta.")
     return {"redirect": {"url": "/cadastro_ferramenta_realizado"}}
 
+# FIM CADASTROS
+
+# ALTERAÇÕES
 @router.get("/alterar_ferramenta/{id}")
 async def get_alterar_ferramenta(request: Request, id: int):
     produto = ProdutoRepo.obter_um(id)
@@ -91,7 +95,9 @@ async def post_alterar_ferramenta(produto: Produto):
     if not produto_alterado or not produto_alterado.id:
         raise HTTPException(status_code=400, detail="Erro ao alterar produto.")
     return {"redirect": {"url": "/alterar_ferramenta_confirmado"}}
+# FIM ALTERAÇÕES
 
+# EXCLUSÕES
 @router.get("/excluir_ferramenta/{id}")
 async def get_excluir_ferramenta(request: Request, id: int):
     produto = ProdutoRepo.obter_um(id)
@@ -119,10 +125,11 @@ async def post_excluir_ferramenta(produto: Produto):
     if not produto_excluido :
         raise HTTPException(status_code=400, detail="Erro ao excluir produto.")
     return {"redirect": {"url": "/excluir_ferramenta_realizado"}}
+# FIM EXCLUSÕES
+
 
 @router.post("/post_cadastro", response_class=JSONResponse)
 async def post_cadastro(cliente_dto: NovoClienteDTO):
-    # Remover campo `confirmacao_senha` antes de inserir no banco de dados
     cliente_data = cliente_dto.model_dump(exclude={"confirmacao_senha"})
     cliente_data["senha"] = obter_hash_senha(cliente_data["senha"])
     novo_cliente = ClienteRepo.inserir(Cliente(**cliente_data))
@@ -242,13 +249,13 @@ async def get_locar(request: Request):
     lista_clientes = ClienteRepo.obter_todos()
     lista_produtos = ProdutoRepo.obter_todos()
     return templates.TemplateResponse(
-        "emprestar.html",
+        "locar.html",
         {"request": request, "lista_clientes": lista_clientes, "lista_produtos": lista_produtos},
     )
 
 
 @router.get("/locacoes")
-async def get_emprestimos(request: Request):
+async def get_locacoes(request: Request):
     lista_locacoes = LocacaoRepo.obter_todos()
     lista_clientes = ClienteRepo.obter_todos()
     for p in lista_locacoes:
@@ -271,7 +278,7 @@ async def get_cadastro_realizado(request: Request):
 
 
 @router.post("/cadastrar_emprestimo", response_class=JSONResponse)
-async def post_cadastrar_emprestimo(locacao: Locacao):
+async def post_cadastrar_locacao(locacao: Locacao):
     try:
         # Verifica se o cliente existe
         cliente = ClienteRepo.obter_um(locacao.cliente_id)
@@ -279,10 +286,10 @@ async def post_cadastrar_emprestimo(locacao: Locacao):
             raise HTTPException(status_code=404, detail=f"Cliente com ID {locacao.cliente_id} não encontrado.")
         
         produto = ProdutoRepo.obter_um(locacao.livro_id)
-        print(locacao.livro_id)
+        print(locacao.produto_id)
         print(produto)
         if not produto:
-            raise HTTPException(status_code=404, detail=f"Livro com ID {locacao.livro_id} não encontrado.")
+            raise HTTPException(status_code=404, detail=f"Ferramenta com ID {locacao.livro_id} não encontrado.")
         
       
         LocacaoRepo.inserir(locacao)

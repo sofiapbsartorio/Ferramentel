@@ -5,12 +5,12 @@
     },
     {
         "id": 2,
-        "locacao_id": 1,
+        "locacao_id": 2,
         "produto_id": 2
     },
     {
         "id": 3,
-        "locacao_id": 1,
+        "locacao_id": 3,
         "produto_id": 3
     }
 ]

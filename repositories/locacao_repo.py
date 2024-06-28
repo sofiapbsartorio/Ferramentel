@@ -2,7 +2,6 @@ import sqlite3
 import json
 
 from typing import Optional, List
-from models.cliente_model import Cliente
 from models.locacao_model import Locacao
 from sql.locacao_sql import *
 from util.database import obter_conexao
@@ -23,6 +22,9 @@ class LocacaoRepo:
                 cursor.execute(SQL_INSERIR, (
                     locacao.cliente_id,
                     locacao.data_emprestimo,
+                    locacao.data_devolucao,
+                    locacao.produto_id,
+                    locacao.valor_total,
                 ))
                 if cursor.rowcount > 0:
                     locacao.id = cursor.lastrowid
@@ -35,8 +37,8 @@ class LocacaoRepo:
         if LocacaoRepo.obter_quantidade() == 0:
             with open(arquivo_json, "r", encoding="utf-8") as arquivo:
                 locacoes = json.load(arquivo)
-                for locacao in locacao:
-                    LocacaoRepo.inserir(locacao(**locacao))
+                for locacao in locacoes:
+                    LocacaoRepo.inserir(Locacao(**locacao))
 
     @classmethod
     def obter_quantidade(cls) -> Optional[int]:

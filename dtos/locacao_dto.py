@@ -8,5 +8,6 @@ class LocacaoDTO(BaseModel):
     data_emprestimo: date
     data_devolucao: date
     produto_id: int
+    valor_total: float
     
    

@@ -1,7 +1,7 @@
 import sqlite3
 import json
 from typing import List, Optional
-from models.locacao_model import Emprestimo
+from models.locacao_model import Locacao
 from models.cliente_model import Cliente
 from sql.locacao_ferramentas_sql import SQL_INSERIR, SQL_CRIAR_TABELA, SQL_OBTER_QUANTIDADE
 from util.database import obter_conexao
@@ -15,11 +15,11 @@ class LocacaoFerramentaRepo:
             cursor.execute(SQL_CRIAR_TABELA)
 
     @classmethod
-    def inserir(cls, emprestimo_id: int, produto_id: int) -> bool:
+    def inserir(cls, locacao_id: int, produto_id: int) -> bool:
         try:
             with obter_conexao() as conexao:
                 cursor = conexao.cursor()
-                cursor.execute(SQL_INSERIR, (emprestimo_id, produto_id))
+                cursor.execute(SQL_INSERIR, (locacao_id, produto_id))
                 if cursor.rowcount > 0:
                     return True
         except sqlite3.Error as ex:
@@ -30,11 +30,11 @@ class LocacaoFerramentaRepo:
         try:
             if LocacaoFerramentaRepo.obter_quantidade() == 0:
                 with open(arquivo_json, "r", encoding="utf-8") as arquivo:
-                    locacao = json.load(arquivo)
-                    for locacao_data in locacao:
+                    locacoes = json.load(arquivo)
+                    for locacao_data in locacoes:
                         locacao_id = locacao_data.get('locacao_id')
                         produto_id = locacao_data.get('produto_id')
-                        if produto_id is not None and produto_id is not None:
+                        if locacao_id is not None and produto_id is not None:
                             LocacaoFerramentaRepo.inserir(locacao_id, produto_id)
 
         except FileNotFoundError:
@@ -42,7 +42,7 @@ class LocacaoFerramentaRepo:
         except json.JSONDecodeError:
             print(f"Erro ao decodificar o arquivo JSON '{arquivo_json}'.")
         except sqlite3.Error as ex:
-            print(f"Erro SQL ao inserir empréstimo-livro do JSON: {ex}")
+            print(f"Erro SQL ao inserir locação do JSON: {ex}")
 
 
     @classmethod

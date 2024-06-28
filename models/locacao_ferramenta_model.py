@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from models.locacao_model import Emprestimo
+from models.locacao_model import Locacao
 from typing import List, Optional
 
 
