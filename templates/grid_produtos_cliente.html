@@ -1,39 +1,38 @@
-<div
-    class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-6 g-3 mb-3">
+<a href="{% if user_logged_in %}/emprestar{% else %}/entrar{% endif %}">
+    <img src="/static/img/banner.png" alt="" style="display: block; margin: 0 auto;">
+</a>
+<p class="text-center mb-0">
+    <a href="{% if user_logged_in %}/emprestar{% else %}/entrar{% endif %}" class="btn btn-warning fw-bold" style="margin-bottom: 20px;">
+        <i class="bi bi-tools"></i>
+        Alugue Agora!
+    </a>
+</p>
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-6 g-3 mb-3">
     {% for p in produtos %}
     <div class="col">
         <div class="card h-100">
-            {%if p.id < 22 -%}
-            <a href="/produto/{{p.id}}">
-                <img src="/static/img/produtos/{{'{:04d}'.format(p.id)}}.jpg"
-                    class="card-img-top w-100">
+            {% if p.id < 22 %}
+            <a href="/produto/{{ p.id }}">
+                <img src="/static/img/produtos/{{ '{:04d}'.format(p.id) }}.jpg" class="card-img-top w-100">
             </a>
-            {%- else-%}
-            <a href="/livro/{{p.id}}">
-                <img src="/static/img/livros/generic.png"  style="height: 300px;"class="card-img-top w-100">
+            {% else %}
+            <a href="/livro/{{ p.id }}">
+                <img src="/static/img/livros/generic.png" style="height: 300px;" class="card-img-top w-100">
             </a>
-
-            {%- endif-%}
+            {% endif %}
             <div class="card-body d-flex flex-column">
                 <h5 class="card-title text-center">
-                    <a href="/produto/{{p.id}}"
-                        class="text-decoration-none text-black">
-                        {{p.nome}}
+                    <a href="/produto/{{ p.id }}" class="text-decoration-none text-black">
+                        {{ p.nome }}
                     </a>
                 </h5>
                 <p class="card-text text-center texto-3-linhas">
-                    {{p.descricao}}
+                    {{ p.descricao }}
                 </p>
                 <p class="lead text-warning text-center mt-auto fw-bold">
-                    R$ {{"{:,.2f}".format(p.preco)}}
+                    R$ {{ "{:,.2f}".format(p.preco) }} / dia
                 </p>
-                <p class="text-center mb-0">
-                    <a href="/cliente/carrinho?id_produto={{p.id}}"
-                        class="btn btn-warning">
-                        <i class="bi bi-tools"></i>
-                        Alugue agora
-                    </a>
-                </p>
+                
             </div>
         </div>
     </div>

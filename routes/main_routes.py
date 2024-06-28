@@ -27,6 +27,12 @@ router = APIRouter()
 
 templates = Jinja2Templates(directory="templates")
 
+def user_logged_in(request: Request):
+    token = request.cookies.get("auth_token")
+    if not token:
+        return False
+    cliente = ClienteRepo.obter_por_token(token)
+    return cliente is not None
 
 @router.get("/html/{arquivo}")
 async def get_html(arquivo: str):
@@ -37,9 +43,10 @@ async def get_html(arquivo: str):
 @router.get("/")
 async def get_root(request: Request):
     produtos = ProdutoRepo.obter_todos()
+    logged_in = user_logged_in(request)
     return templates.TemplateResponse(
         "index.html",
-        {"request": request, "produtos": produtos},
+        {"request": request, "produtos": produtos, "user_logged_in": logged_in},
     )
 
 
@@ -244,12 +251,12 @@ async def get_buscar(
 #################################################################
 # Empréstimo
 
-@router.get("/locar")
+@router.get("/emprestar")
 async def get_locar(request: Request):
     lista_clientes = ClienteRepo.obter_todos()
     lista_produtos = ProdutoRepo.obter_todos()
     return templates.TemplateResponse(
-        "locar.html",
+        "emprestar.html",
         {"request": request, "lista_clientes": lista_clientes, "lista_produtos": lista_produtos},
     )
 

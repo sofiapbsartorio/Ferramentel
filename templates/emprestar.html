@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block subtitulo %}Emprestar{% endblock %}
+{% block conteudo %}
+<h1 class="display-5"><b>Alugar Ferramenta</b></h1>
+<hr>
+<form class="row json-form" action="/cadastrar_emprestimo" method="post">
+    <div class="col-12 col-lg-3">
+        <div class="form-floating mb-3">
+            <input type="date" class="form-control" id="data_emprestimo"
+                name="data_emprestimo" placeholder=" ">
+            <label for="data_emprestimo">Data de Empréstimo</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="date" class="form-control" id="data_devolucao"
+                name="data_devolucao" placeholder=" ">
+            <label for="data_devolucao">Data de Devolução</label>
+        </div>
+    </div>
+    <div class="col-12 col-lg-3">
+        <div class="form-floating mb-3">
+            <select class="form-select" id="produto_id" name="produto_id">
+                {% for produto in lista_produtos %}
+                <option value="{{ produto.id }}" data-preco="{{ produto.preco }}">{{ produto.nome }}</option>
+                {% endfor %}
+            </select>
+            <label for="produto_id">Ferramenta</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="preco_total" name="preco_total" placeholder=" " readonly>
+            <label for="preco_total">Preço Total (R$)</label>
+        </div>
+    </div>
+    <div class="col-12 col-lg-3">
+        <div class="form-floating mb-3">
+            <select class="form-select" id="cliente_id" name="cliente_id">
+                <option value="{{ cliente.id }}">{{ cliente.nome }}</option>
+            </select>
+            <label for="cliente_id">Cliente</label>
+        </div>
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-warning">Alugar</button>
+    </div>
+</form>
+<script src="/static/js/formToJson.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const currentDate = new Date();
+        const year = 2024;
+        
+        const dataEmprestimo = document.getElementById('data_emprestimo');
+        const dataDevolucao = document.getElementById('data_devolucao');
+        const produtoSelect = document.getElementById('produto_id');
+        const precoTotalInput = document.getElementById('preco_total');
+        
+        function calcularDiasAluguel() {
+            const emprestimo = new Date(dataEmprestimo.value);
+            const devolucao = new Date(dataDevolucao.value);
+            const diffTime = Math.abs(devolucao - emprestimo);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+            return diffDays;
+        }
+
+        function calcularPrecoTotal() {
+            const selectedProduto = produtoSelect.options[produtoSelect.selectedIndex];
+            const precoDiario = parseFloat(selectedProduto.getAttribute('data-preco'));
+            const diasAluguel = calcularDiasAluguel();
+            const precoTotal = precoDiario * diasAluguel;
+            precoTotalInput.value = precoTotal.toFixed(2);
+        }
+        
+        if (dataEmprestimo) {
+            dataEmprestimo.value = `${year}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')}`;
+        }
+        
+        if (dataDevolucao) {
+            dataDevolucao.value = `${year}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')}`;
+        }
+
+        dataEmprestimo.addEventListener('change', calcularPrecoTotal);
+        dataDevolucao.addEventListener('change', calcularPrecoTotal);
+        produtoSelect.addEventListener('change', calcularPrecoTotal);
+
+        calcularPrecoTotal();
+    });
+</script>
+{% endblock %}
