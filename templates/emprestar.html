@@ -18,24 +18,24 @@
     </div>
     <div class="col-12 col-lg-3">
         <div class="form-floating mb-3">
+            <select class="form-select" id="cliente_id" name="cliente_id">
+                <option value="{{ cliente.id }}">{{ cliente.nome }}</option>
+            </select>
+            <label for="cliente_id">Cliente</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="valor_total" name="valor_total" placeholder=" " readonly>
+            <label for="valor_total">Preço Total (R$)</label>
+        </div>
+    </div>
+    <div class="col-12 col-lg-3">
+        <div class="form-floating mb-3">
             <select class="form-select" id="produto_id" name="produto_id">
                 {% for produto in lista_produtos %}
                 <option value="{{ produto.id }}" data-preco="{{ produto.preco }}">{{ produto.nome }}</option>
                 {% endfor %}
             </select>
             <label for="produto_id">Ferramenta</label>
-        </div>
-        <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="preco_total" name="preco_total" placeholder=" " readonly>
-            <label for="preco_total">Preço Total (R$)</label>
-        </div>
-    </div>
-    <div class="col-12 col-lg-3">
-        <div class="form-floating mb-3">
-            <select class="form-select" id="cliente_id" name="cliente_id">
-                <option value="{{ cliente.id }}">{{ cliente.nome }}</option>
-            </select>
-            <label for="cliente_id">Cliente</label>
         </div>
     </div>
     <div class="col-12">
@@ -51,7 +51,7 @@
         const dataEmprestimo = document.getElementById('data_emprestimo');
         const dataDevolucao = document.getElementById('data_devolucao');
         const produtoSelect = document.getElementById('produto_id');
-        const precoTotalInput = document.getElementById('preco_total');
+        const precoTotalInput = document.getElementById('valor_total');
         
         function calcularDiasAluguel() {
             const emprestimo = new Date(dataEmprestimo.value);

@@ -57,3 +57,4 @@ SQL_OBTER_QUANTIDADE_BUSCA = """
     SELECT COUNT(*) FROM produto
     WHERE nome LIKE ? OR descricao LIKE ?
 """
+

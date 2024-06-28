@@ -268,7 +268,7 @@ async def get_locacoes(request: Request):
     for p in lista_locacoes:
         print(p.data_emprestimo)
     return templates.TemplateResponse(
-        "locacoes.html",
+        "emprestimos.html",
         {"request": request,
         "lista_locacoes": lista_locacoes,
         "lista_clientes": lista_clientes
@@ -285,25 +285,20 @@ async def get_cadastro_realizado(request: Request):
 
 
 @router.post("/cadastrar_emprestimo", response_class=JSONResponse)
-async def post_cadastrar_locacao(locacao: Locacao):
+async def post_cadastrar_emprestimo(locacao: Locacao):
     try:
         # Verifica se o cliente existe
         cliente = ClienteRepo.obter_um(locacao.cliente_id)
         if not cliente:
             raise HTTPException(status_code=404, detail=f"Cliente com ID {locacao.cliente_id} não encontrado.")
         
-        produto = ProdutoRepo.obter_um(locacao.livro_id)
+        produto = ProdutoRepo.obter_um(locacao.produto_id)
         print(locacao.produto_id)
         print(produto)
         if not produto:
-            raise HTTPException(status_code=404, detail=f"Ferramenta com ID {locacao.livro_id} não encontrado.")
+            raise HTTPException(status_code=404, detail=f"Ferramenta com ID {locacao.produto_id} não encontrado.")
         
-      
         LocacaoRepo.inserir(locacao)
-        produto.emprestado = 1
-        ProdutoRepo.alterar_locacao(produto)
-        if ProdutoRepo.alterar_locacao(produto) is None:
-            raise HTTPException(status_code=400, detail="Erro ao atualizar o status.")
         
         return {"redirect": {"url": "/cadastro_locacao_realizado"}}    
     except Exception as e:
