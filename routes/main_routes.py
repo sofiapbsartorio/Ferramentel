@@ -297,6 +297,13 @@ async def get_cadastro_realizado(request: Request):
         {"request": request},
     )
 
+@router.get("/sobre")
+async def get_sobre(request: Request):
+    return templates.TemplateResponse(
+        "sobre.html",
+        {"request": request},
+    )
+
 
 @router.post("/cadastrar_emprestimo", response_class=JSONResponse)
 async def post_cadastrar_emprestimo(locacao: Locacao):
