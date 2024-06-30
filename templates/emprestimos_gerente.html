@@ -9,6 +9,7 @@
         <thead>
             <tr>
                 <th>Data de Empréstimo</th>
+                <th>Cliente</th>
                 <th>Produto</th>
                 <th>ID do Produto</th>
                 <th>Id da Locação</th>
@@ -20,6 +21,7 @@
             {% for locacao in lista_locacoes %}
                 <tr>
                     <td>{{ locacao.data_emprestimo }}</td>
+                    <td>{{ locacao.cliente_id }}</td>
                     <td><img src="/static/img/produtos/{{'{:04d}'.format(locacao.produto_id)}}.jpg" style="width: 130px; height: 130px;"></td>
                     <td>{{ locacao.produto_id }}</td>
                     <td>{{ locacao.id }}</td>
