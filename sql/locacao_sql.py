@@ -24,3 +24,4 @@ SQL_OBTER_TODOS = """
 SELECT * FROM locacao
 ORDER BY ID
 """
+

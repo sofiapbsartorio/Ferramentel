@@ -261,14 +261,28 @@ async def get_locar(request: Request):
     )
 
 
-@router.get("/locacoes")
-async def get_locacoes(request: Request):
+@router.get("/emprestimos")
+async def get_emprestimos(request: Request):
     lista_locacoes = LocacaoRepo.obter_todos()
     lista_clientes = ClienteRepo.obter_todos()
     for p in lista_locacoes:
         print(p.data_emprestimo)
     return templates.TemplateResponse(
         "emprestimos.html",
+        {"request": request,
+        "lista_locacoes": lista_locacoes,
+        "lista_clientes": lista_clientes
+        },
+    )
+
+@router.get("/emprestimos_gerente")
+async def get_emprestimos(request: Request):
+    lista_locacoes = LocacaoRepo.obter_todos()
+    lista_clientes = ClienteRepo.obter_todos()
+    for p in lista_locacoes:
+        print(p.data_emprestimo)
+    return templates.TemplateResponse(
+        "emprestimos_gerente.html",
         {"request": request,
         "lista_locacoes": lista_locacoes,
         "lista_clientes": lista_clientes

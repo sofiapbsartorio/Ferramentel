@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block subtitulo %}Emprestar{% endblock %}
 {% block conteudo %}
-<h1 class="display-5"><b>Meus Aluguéis</b></h1>
+<h1 class="display-5"><b>Listagem de Aluguéis
+    </b></h1>
 <hr>
 <form class="row json-form" action="/cadastrar_emprestimo" method="post">
     <table class="table">
@@ -9,20 +10,22 @@
             <tr>
                 <th>Data de Empréstimo</th>
                 <th>Produto</th>
-                <th>Data de Devolução</th>
+                <th>ID do Produto</th>
+                <th>Id da Locação</th>
                 <th>Valor Total</th>
+                <th>Data de Devolução</th>
             </tr>
         </thead>
         <tbody>
             {% for locacao in lista_locacoes %}
-                {% if locacao.cliente_id == cliente.id %}
                 <tr>
                     <td>{{ locacao.data_emprestimo }}</td>
                     <td><img src="/static/img/produtos/{{'{:04d}'.format(locacao.produto_id)}}.jpg" style="width: 130px; height: 130px;"></td>
-                    <td>{{ locacao.data_devolucao }}</td>
+                    <td>{{ locacao.produto_id }}</td>
+                    <td>{{ locacao.id }}</td>
                     <td>{{ locacao.valor_total }}</td>
+                    <td> {{locacao.data_devolucao }}</td>
                 </tr>
-                {% endif %}
             {% endfor %}
         </tbody>
     </table>
